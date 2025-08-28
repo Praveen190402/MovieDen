@@ -1,0 +1,269 @@
+/* movies.css - shared for action.html, romance.html, etc. */
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;500;700&display=swap');
+
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html,body { height: 100%; }
+
+/* Base */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f10;
+  color: #fff;
+  line-height: 1.5;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #070708;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+header h1, .page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem;
+  color: #ff4757;
+  letter-spacing: 2px;
+}
+header p.subtitle, .subtitle {
+  color: #cfcfcf;
+  margin-top: .4rem;
+  font-weight: 300;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Movie Card */
+.movie-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  color: #fff;
+  transition: transform 280ms cubic-bezier(.2,.9,.2,1), box-shadow 280ms, background 260ms;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+/* Poster */
+.movie-card img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+  transition: transform 320ms ease;
+}
+
+/* Title */
+.movie-card h3 {
+  padding: 0.8rem 0.8rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* Description (hidden by default) */
+.movie-card .description {
+  font-size: 0.95rem;
+  color: #ddd;
+  padding: 0.4rem 1rem;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 220ms ease, max-height 260ms ease, margin 220ms;
+}
+
+/* Buttons container */
+.movie-card .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 220ms ease, max-height 260ms ease;
+}
+
+/* Link buttons */
+.movie-card .buttons a {
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  display: inline-block;
+  transition: transform 160ms ease, opacity 160ms, background 260ms ease;
+}
+
+/* Watch Now = primary (red) */
+.movie-card .buttons .watch-btn {
+  background: linear-gradient(180deg,#ff6b81,#ff4757);
+  box-shadow: 0 6px 14px rgba(255,71,87,0.18);
+}
+
+/* Trailer = secondary (blue) */
+.movie-card .buttons .trailer-btn {
+  background: linear-gradient(180deg,#3aa0ff,#1e90ff);
+  box-shadow: 0 6px 14px rgba(30,144,255,0.12);
+}
+
+/* Card Hover */
+.movie-card:hover,
+.movie-card:focus-within {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.65);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  z-index: 3;
+}
+.movie-card:hover img,
+.movie-card:focus-within img {
+  transform: scale(1.08);
+}
+
+/* Reveal description + buttons */
+.movie-card:hover .description,
+.movie-card:focus-within .description {
+  opacity: 1;
+  max-height: 6.2rem;
+  margin-top: .45rem;
+}
+.movie-card:hover .buttons,
+.movie-card:focus-within .buttons {
+  opacity: 1;
+  max-height: 3.5rem;
+  margin-bottom: 0.6rem;
+}
+
+/* Button hover color changes */
+.movie-card .buttons .watch-btn:hover {
+  background: linear-gradient(180deg,#ff4757,#e84118);
+  box-shadow: 0 6px 16px rgba(232,65,24,0.25);
+}
+.movie-card .buttons .trailer-btn:hover {
+  background: linear-gradient(180deg,#1e90ff,#005eff);
+  box-shadow: 0 6px 16px rgba(0,94,255,0.25);
+}
+
+/* Glow effect on parent card when hovering buttons */
+.movie-card .watch-btn:hover ~ .trailer-btn,
+.movie-card .trailer-btn:hover ~ .watch-btn {
+  opacity: 0.95;
+}
+.movie-card:hover .watch-btn:hover {
+  box-shadow: 0 0 20px rgba(255,71,87,0.7);
+}
+.movie-card:hover .trailer-btn:hover {
+  box-shadow: 0 0 20px rgba(30,144,255,0.7);
+}
+.movie-card:hover .watch-btn:hover::after,
+.movie-card:hover .trailer-btn:hover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  z-index: -1;
+  transition: box-shadow 0.3s ease;
+}
+.movie-card:hover .watch-btn:hover::after {
+  box-shadow: 0 0 30px rgba(255,71,87,0.4);
+}
+.movie-card:hover .trailer-btn:hover::after {
+  box-shadow: 0 0 30px rgba(30,144,255,0.4);
+}
+
+/* Button hover lift */
+.movie-card .buttons a:hover,
+.movie-card .buttons a:focus {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+/* Accessibility */
+.movie-card a:focus,
+.movie-card button:focus {
+  outline: 3px solid rgba(255,71,87,0.18);
+  outline-offset: 3px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.4rem;
+  color: #bdbdbd;
+  font-size: 0.9rem;
+  background: #070708;
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .movies-grid { grid-template-columns: repeat(3, 1fr); padding: 2rem; }
+  .movie-card img { height: 300px; }
+}
+@media (max-width: 780px) {
+  .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 1.2rem; gap: 1rem; }
+  .movie-card img { height: 280px; }
+  header h1 { font-size: 2rem; }
+}
+@media (max-width: 460px) {
+  .movies-grid { grid-template-columns: 1fr; padding: 1rem; }
+  .movie-card img { height: 220px; }
+  .movie-card h3 { font-size: 1.05rem; }
+  .movie-card .description { font-size: 0.95rem; }
+}
+.genre-buttons {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.genre-btn {
+  display: inline-block;
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.genre-btn:hover {
+  background-color: #ff1a1a;
+  transform: scale(1.1);
+}
+.home-button {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.home-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #4CAF50, #2E8B57);
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.home-btn:hover {
+  background: linear-gradient(135deg, #388E3C, #1E5631);
+  transform: scale(1.1);
+}
